@@ -6,17 +6,34 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class AppTest 
 {
+    private String employeeNameValue = " Nguyễn Thành Thoại Long - 1879";
+
+    private By employeeName = By.xpath("//span[text()='"+employeeNameValue+"']");
+    private By division = By.cssSelector("div[folabel='Division']");
+    private By input = By.cssSelector("div.select2-drop-active input.select2-focused");
+    private By taskName = By.cssSelector("div[folabel='Task']");
+    private By timesheetHour = By.cssSelector("input[name='Timesheet_Hours']");
+    private By project = By.cssSelector("div[folabel='Project']");
+    private By taskDes = By.cssSelector("div[folabel='Task_Description'] textarea");
+    private By billableHour = By.cssSelector("input[name='Billable_Hours']");
+
+
+    private String divisionValue = "Smartbox";
+    private String taskValue = "Test execution";
+    private String projectValue = "DS_Sma_1 - Smartbox Dedicated";
+    private String taskDesValue = "Continue beta testing on Denmark Preprod";
+    private String timesheetHourValue = "8";
+    private String billableHourValue = "8";
+
     @BeforeClass
     public static void setupTest(){
         Configuration.browser = "chrome";
@@ -41,15 +58,22 @@ public class AppTest
         //$(By.cssSelector("div#password input.whsOnd.zHQkBf")).setValue(("Smartosc@123")).pressEnter();
         $(By.cssSelector("div[data-identifier='longntt@smartosc.com']")).click();*/
         open("https://people.zoho.com/hrportal1524046581683/zp#timesheet/form/add-formLinkName:Time_Log");
-        $(By.cssSelector("div[folabel='Division']")).shouldBe(Condition.visible).click();
-        $(By.cssSelector("div.select2-drop-active input")).setValue("Smartbox").pressEscape();
-        $(By.cssSelector("div[folabel='Division']")).shouldBe(Condition.visible).click();
-        $(By.cssSelector("div.select2-drop-active input")).setValue("Test execution").pressEscape();
-        $(By.cssSelector("input[name='Timesheet_Hours']")).setValue("8");
-        $(By.cssSelector("div[folabel='Project']")).shouldBe(Condition.visible).click();
-        $(By.cssSelector("div.select2-drop-active input")).setValue("DS_Sma_1 - Smartbox Dedicated").pressEscape();
-        $(By.cssSelector("div[folabel='Task_Description'] textarea")).setValue("Test");
-        $(By.cssSelector("input[name='Billable_Hours']")).setValue("8");
+        $(employeeName).shouldBe(Condition.appears);
+        $(division).shouldBe(Condition.visible).click();
+        Thread.sleep(1500);
+        $(input).setValue(divisionValue);
+        $(By.xpath("//span[text()='"+divisionValue+"']/ancestor::li")).shouldBe(Condition.visible).click();
+        $(taskName).shouldBe(Condition.visible).click();
+        Thread.sleep(1500);
+        $(input).setValue(taskValue);
+        $(By.xpath("//span[text()='"+taskValue+"']/ancestor::li")).shouldBe(Condition.visible).click();
+        $(timesheetHour).setValue(timesheetHourValue);
+        $(project).shouldBe(Condition.visible).click();
+        Thread.sleep(1500);
+        $(input).setValue(projectValue);
+        $(By.xpath("//span[text()='"+projectValue+"']/ancestor::li")).shouldBe(Condition.visible).click();
+        $(taskDes).setValue(taskDesValue);
+        $(billableHour).setValue(billableHourValue);
     }
 
     @AfterClass
