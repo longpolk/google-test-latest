@@ -36,8 +36,9 @@ public class AppTest
 
     @BeforeClass
     public static void setupTest(){
+        System.setProperty("webdriver.chrome.driver", "D:\\Working\\Selenide\\timesheet-smartosc\\driver\\chromedriver_win32\\chromedriver.exe");
         Configuration.browser = "chrome";
-        String userProfile= "C:\\Users\\LongNTT-CA\\AppData\\Local\\Google\\Chrome\\User Data\\longpolk";
+        String userProfile= "C:\\Users\\longp\\AppData\\Local\\Google\\Chrome\\User Data\\longpolk";
         ChromeOptions options = new ChromeOptions();
         options.addArguments("user-data-dir="+userProfile);
         options.addArguments("--start-maximized");
