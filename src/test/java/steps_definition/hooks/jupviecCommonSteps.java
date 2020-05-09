@@ -5,6 +5,7 @@ import common.AndroidPages.AndroidLoginPage;
 import common.BasePage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.junit.Assert;
 
 public class jupviecCommonSteps{
@@ -17,8 +18,13 @@ public class jupviecCommonSteps{
         androidLoginPage.enterPhoneAndOTPAndPIN(phone, otp, pin);
     }
 
-    @Then("^I am on Homepage of VinID$")
+    @Then("^Verify I am on Homepage of VinID$")
     public void iAmOnHomepageOfVinID() {
         Assert.assertTrue(androidHomePage.isHomePageDisplayed());
+    }
+
+    @When("^I click on (.*) shortcut$")
+    public void iClickOnShortcut(String link) {
+        androidHomePage.clickOnLink(link);
     }
 }
